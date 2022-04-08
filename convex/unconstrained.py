@@ -53,7 +53,7 @@ class DescentAlgorithm:
         
         fc, gc = 1, 1
         
-        sk = self.prepare_initial_step(xk, fk, gradk, *args, **kwargs)
+        pk = self.prepare_initial_step(xk, fk, gradk, *args, **kwargs)
         
         advance_x, advance_f, advance_max = True, True, True
         k = 0
@@ -64,16 +64,17 @@ class DescentAlgorithm:
         while (advance_x or advance_f) and (k <= self.max_iter):
             
             alpha, fc_, gc_, fnew, fk, gradnew = line_search(self.fun, self.gradient,
-                                                             xk, sk, gradk, fk, args=args,
+                                                             xk, pk, gradk, fk, args=args,
                                                              c1=self.wolfe_coefs[0],
-                                                             c2=self.wolfe_coefs[1])
+                                                             c2=self.wolfe_coefs[1],
+                                                             maxiter=15)
             
             if alpha is None:
                 alpha = 1
-                fnew = self.fun(xk + alpha * sk, *args, **kwargs)
-                gradnew = self.gradient(xk + alpha * sk, *args, **kwargs)
+                fnew = self.fun(xk + alpha * pk, *args, **kwargs)
+                gradnew = self.gradient(xk + alpha * pk, *args, **kwargs)
             
-            xnew = xk + alpha * sk
+            xnew = xk + alpha * pk
             fc = fc + fc_
             gc = gc + gc_
             
@@ -83,14 +84,14 @@ class DescentAlgorithm:
             advance_f = abs(fnew - fk) > self.f_tol
             advance_x = np.linalg.norm(xnew - xk) > self.x_tol
             
-            xk, fk, gradk, sk = self.prepare_next_step(xk, fk, gradk, sk, xnew, fnew, gradnew, *args, **kwargs)
+            xk, fk, gradk, pk = self.prepare_next_step(xk, fk, gradk, pk, xnew, fnew, gradnew, *args, **kwargs)
 
             k = k + 1
             
             if self.save_history:
                 self.history.append({"x":xk, "f":fk, "grad":gradk})
             
-            if np.linalg.norm(sk) < _small_number:
+            if np.linalg.norm(pk) < np.sqrt(np.finfo(float).eps):
                 self.message = 'Negligible step'
                 self.success = True
                 break
@@ -110,7 +111,7 @@ class DescentAlgorithm:
         self.gc = gc
         self.result = {"x":xk, "f":fk, "grad":gradk, "iter":k, "message":self.message, "success":self.success}
     
-    def prepare_next_step(self, xk, fk, gradk, sk, xnew, fnew, gradnew, *args, **kwargs):
+    def prepare_next_step(self, xk, fk, gradk, pk, xnew, fnew, gradnew, *args, **kwargs):
         pass
     
     def prepare_initial_step(self, xk, fk, gradk, *args, **kwargs):
@@ -119,7 +120,7 @@ class DescentAlgorithm:
 
 class SteepestDescent(DescentAlgorithm):
 
-    def prepare_next_step(self, xk, fk, gradk, sk, xnew, fnew, gradnew, *args, **kwargs):
+    def prepare_next_step(self, xk, fk, gradk, pk, xnew, fnew, gradnew, *args, **kwargs):
         return xnew, fnew, gradnew, -gradnew
     
     def prepare_initial_step(self, xk, fk, gradk, *args, **kwargs):
@@ -128,8 +129,8 @@ class SteepestDescent(DescentAlgorithm):
 
 class ConjugateGradient(SteepestDescent):
 
-    def prepare_next_step(self, xk, fk, gradk, sk, xnew, fnew, gradnew, *args, **kwargs):
-        return xnew, fnew, gradnew, -gradnew + sk * gradnew.dot(gradnew) / gradk.dot(gradk)
+    def prepare_next_step(self, xk, fk, gradk, pk, xnew, fnew, gradnew, *args, **kwargs):
+        return xnew, fnew, gradnew, -gradnew + pk * gradnew.dot(gradnew) / gradk.dot(gradk)
 
 
 class Newton(DescentAlgorithm):
@@ -143,7 +144,7 @@ class Newton(DescentAlgorithm):
         super().__init__(fun, gradient=gradient, hess=hess, nd=nd, wolfe_c1=wolfe_c1, wolfe_c2=wolfe_c2,
                          x_tol=x_tol, f_tol=f_tol, max_iter=max_iter, save_history=save_history)
     
-    def prepare_next_step(self, xk, fk, gradk, sk, xnew, fnew, gradnew, *args, **kwargs):
+    def prepare_next_step(self, xk, fk, gradk, pk, xnew, fnew, gradnew, *args, **kwargs):
         H = self.hess(xnew, *args, **kwargs)
         return xnew, fnew, gradnew, np.linalg.solve(H, -gradnew)
     
@@ -162,7 +163,7 @@ class QuasiNewton(Newton):
         super().__init__(fun, gradient=gradient, hess=hess, nd=nd, wolfe_c1=wolfe_c1, wolfe_c2=wolfe_c2,
                          x_tol=x_tol, f_tol=f_tol, max_iter=max_iter, save_history=save_history)
     
-    def prepare_next_step(self, xk, fk, gradk, sk, xnew, fnew, gradnew, *args, **kwargs):
+    def prepare_next_step(self, xk, fk, gradk, pk, xnew, fnew, gradnew, *args, **kwargs):
         self.hess.update(xnew - xk, gradnew - gradk)
         H = self.hess.get_matrix()
         return xnew, fnew, gradnew, np.linalg.solve(H, -gradnew)
