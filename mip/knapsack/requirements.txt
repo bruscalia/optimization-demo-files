@@ -1,6 +1,6 @@
 numpy
 pandas
-scipy
+scipy>=1.9.*
 pyomo
 ipykernel
 openpyxl
