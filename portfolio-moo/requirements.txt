@@ -1,0 +1,4 @@
+pymoode>=0.2.*
+pandas
+matplotlib
+ipykernel
