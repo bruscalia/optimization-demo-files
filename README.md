@@ -23,5 +23,8 @@ Check my [Medium profile](https://medium.com/@bruscalia12) for some interesting 
 - Implementation of Linear Regression from scratch in Python.
 - Examples of Linear Regression applications, residual analysis, and feature selection.
 
+## Portfolio MOO
+- Solution of the Efficient Frontier problem from the Modern Portfolio Theory using a multi-objective approach with pymoo and pymoode.
+
 ## Contact
 bruscalia12@gmail.com
