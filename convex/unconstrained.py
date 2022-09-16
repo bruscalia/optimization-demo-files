@@ -101,7 +101,7 @@ class DescentAlgorithm:
             gc = gc + gc_
             
             if gradnew is None:
-                gradnew = self.gradient(xnew)
+                gradnew = self.gradient(xnew, *args, **kwargs)
             
             advance_f = abs(fnew - fk) > self.f_tol
             advance_x = np.linalg.norm(xnew - xk) > self.x_tol
