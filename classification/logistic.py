@@ -42,16 +42,22 @@ class LogisticRegression:
         ----------
         fit_intercept : bool, optional
             Whether or not to define a Beta 0 term, by default True
+        
         l2 : float, optional
             L2 regularization parameter, by default 0.0
+        
         tol : float, optional
             Numerical tolerance on logistic functions, by default 1e-8
+        
         optimizer : Optimizer, optional
             Optimizer, by default None
+        
         preprocess : bool, optional
             Whether or not to use linear regression as a warm start for betas, by default True
+        
         seed : int, optional
             Random seed passed to numpy, by default None
+        
         random_scale : float, optional
             Random scale for random initialization of betas, by default 1e-2
         """
