@@ -8,6 +8,7 @@ Check my [Medium profile](https://medium.com/@bruscalia12) for some interesting 
 - Implementation from scratch of usual gradient-based line search algorithms in Python.
 - Solution of a constrained problem using the scipy.optimize minimize function.
 - Optimization of a chemical reactor problem.
+- Applications of nonlinear optimization to [classification problems](./classification/logistic_regression.ipynb).
 
 ## Nonconvex
 
