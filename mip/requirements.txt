@@ -2,5 +2,6 @@ numpy
 pandas
 scipy>=1.9.*
 pyomo
+matplotlib
 ipykernel
 openpyxl
