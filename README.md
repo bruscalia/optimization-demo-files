@@ -18,7 +18,7 @@ Check my [Medium profile](https://medium.com/@bruscalia12) for some interesting 
 
 ## MIP
 
-- Variants of the knapsack problem: [multi-dimensional](./mip/knapsack/notebooks/simple_knapsack.ipynb) and [multiple knapsacks](./mip/knapsack/notebooks/multiple_knapsacks.ipynb).
+- Variants of the knapsack problem: [simple](./mip/knapsack/notebooks/simple_knapsack.ipynb), [multi-dimensional](./mip/knapsack/notebooks/simple_knapsack.ipynb) and [multiple knapsacks](./mip/knapsack/notebooks/multiple_knapsacks.ipynb).
 - [Dynamic lot-size model](./mip/dynamic_lot_size/notebooks/dynamic_lot_size.ipynb)
 - [Job-shop scheduling](https://github.com/bruscalia/jobshop/blob/master/notebooks/mip_models.ipynb) (external repository)
 - [Branch & Bound](./mip/branch_and_bound/graphical_example.ipynb) graphical example
