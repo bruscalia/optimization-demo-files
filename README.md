@@ -21,7 +21,7 @@ Check my [Medium profile](https://medium.com/@bruscalia12) for some interesting 
 - Variants of the knapsack problem: [simple](./mip/knapsack/notebooks/simple_knapsack.ipynb), [multi-dimensional](./mip/knapsack/notebooks/simple_knapsack.ipynb) and [multiple knapsacks](./mip/knapsack/notebooks/multiple_knapsacks.ipynb).
 - [Dynamic lot-size model](./mip/dynamic_lot_size/notebooks/dynamic_lot_size.ipynb)
 - [Job-shop scheduling](https://github.com/bruscalia/jobshop/blob/master/notebooks/mip_models.ipynb) (external repository)
-- [Branch & Bound](./mip/branch_and_bound/graphical_example.ipynb) graphical example
+- Branch & Bound [graphical example](./mip/branch_and_bound/graphical_example.ipynb) and pure Python implementation [from scratch](./mip/branch_and_bound/branch_and_bound.ipynb)
 
 ## Nonconvex
 
