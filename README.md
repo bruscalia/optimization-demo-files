@@ -22,6 +22,7 @@ Check my [Medium profile](https://medium.com/@bruscalia12) for some interesting 
 - [Dynamic lot-size model](./mip/dynamic_lot_size/notebooks/dynamic_lot_size.ipynb)
 - [Job-shop scheduling](https://github.com/bruscalia/jobshop/blob/master/notebooks/mip_models.ipynb) (external repository)
 - Branch & Bound [graphical example](./mip/branch_and_bound/graphical_example.ipynb) and pure Python implementation [from scratch](./mip/branch_and_bound/branch_and_bound.ipynb)
+- [Cutting stock problem](./mip/cutting_stock/cutting_stock.ipynb)
 
 ## Nonconvex
 
