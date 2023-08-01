@@ -23,6 +23,7 @@ Check my [Medium profile](https://medium.com/@bruscalia12) for some interesting 
 - [Job-shop scheduling](https://github.com/bruscalia/jobshop/blob/master/notebooks/mip_models.ipynb) (external repository)
 - Branch & Bound [graphical example](./mip/branch_and_bound/graphical_example.ipynb) and pure Python implementation [from scratch](./mip/branch_and_bound/branch_and_bound.ipynb)
 - [Cutting stock problem](./mip/cutting_stock/cutting_stock.ipynb)
+- [Capacitated vehicle routing problem (CVRP)](./vrp/cvrp_mip.ipynb)
 
 ## Nonconvex
 
@@ -34,8 +35,10 @@ Check my [Medium profile](https://medium.com/@bruscalia12) for some interesting 
 - Implementation of [Linear Regression from scratch](./regression/notebooks/linear_regression.ipynb) in Python.
 - Examples of Linear Regression applications, residual analysis, and feature selection.
 
-## Portfolio MOO
-- Solution of the Efficient Frontier problem from the Modern Portfolio Theory using a [multi-objective approach](./portfolio-moo/portfolio.ipynb) with pymoo and pymoode.
+## Special
+
+- [Capacitated vehicle routing problem (CVRP)](https://medium.com/@bruscalia12/vehicle-routing-problems-exact-and-heuristic-solutions-c411c0f4d734): Heuristics
+- [Portfolio Efficient Frontier](./portfolio-moo/portfolio.ipynb): Modern Portfolio Theory using a multi-objective approach with pymoo and pymoode.
 
 ## Contact
 bruscalia12@gmail.com

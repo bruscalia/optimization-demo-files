@@ -1,0 +1,9 @@
+numpy
+pandas
+scipy
+networkx
+pyomo
+highspy
+ortools
+matplotlib
+ipykernel
