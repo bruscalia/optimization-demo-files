@@ -3,7 +3,7 @@ from typing import List, Union
 import numpy as np
 from scipy.optimize import OptimizeResult
 
-from bnb.nodes import Node, RootNode, BaseNode
+from bnb.nodes import Node, RootNode
 
 
 class BranchAndBound:
@@ -102,7 +102,6 @@ class BranchAndBound:
         root_node.solve()
         
         # Initialize values
-        best_bound = root_node.sol.fun
         incumbent = np.inf
         is_optimal = root_node.integer
         message = "No solution found"
@@ -117,19 +116,22 @@ class BranchAndBound:
             root_node.branch()
             queue.extend(root_node.children)
         elif is_optimal:
+            if verbose:
+                print("Integer optimal solution on root node")
             sol = root_node.sol
             message = "Integer optimal solution on root node"
         else:
             return OptimizeResult(success=False, message="Infeasible")
         
         # Count nodes explored
-        k = 0
+        explored = 0
+        fathomed = 0
         
         # Iterate until all good nodes are explored
-        while len(queue) > 0 and k < max_iter and best_bound < incumbent:
+        while len(queue) > 0 and explored < max_iter:
             
             # Check relaxation of parents -> Ineficient
-            best_bound = min(n.parent.sol.fun for n in queue)
+            best_bound = min(n.best_bound for n in queue)
             
             # Break if new best bound reduces gap enough
             gap = self._calc_gap(best_bound, incumbent)
@@ -141,18 +143,19 @@ class BranchAndBound:
             node = self._pop_next(queue)
             
             # Check if node is still worth solving
-            if node.parent.sol.fun > incumbent:
+            if node.best_bound >= incumbent:
                 if verbose:
-                    print(f"Fathom node {k} due to poor parent node relaxation")
+                    print(f"Fathom node {explored} due to poor parent node relaxation")
+                    fathomed = fathomed + 1
                 continue
             else:
-                k = k + 1
+                explored = explored + 1
                 node.solve()
             
             # Check if feasible
             if not node.feasible:
                 if verbose:
-                    print(f"Infeasible node {k}")
+                    print(f"Infeasible node {explored}")
                 continue
             
             # Feasible solution
@@ -161,23 +164,23 @@ class BranchAndBound:
                     sol = node.sol
                     incumbent = node.sol.fun
                     if verbose:
-                        print(f"New best sol {k}: {node.sol.fun}")
+                        print(f"New best sol {explored}: {node.sol.fun}")
                 else:
                     if verbose:
-                        print(f"Integer but not the best {k}: {node.sol.fun}")
+                        print(f"Integer but not the best {explored}: {node.sol.fun}")
                     continue
             
             # Not integer solution
             elif node.sol.fun < incumbent:
                 if verbose:
-                    print(f"Feasible below incumbent {k}: {node.sol.fun}")
+                    print(f"Feasible below incumbent {explored}: {node.sol.fun}")
                 node.branch()
                 queue.extend(node.children)
                 continue
             
             else:
                 if verbose:
-                    print(f"Feasible above incumbent -> Fathom {k}: {node.sol.fun}")
+                    print(f"Feasible above incumbent -> Fathom {explored}: {node.sol.fun}")
                 continue
         
         # queue is empty
@@ -187,12 +190,13 @@ class BranchAndBound:
             message = "Optimal integer solution found"
         
         sol.message = message
-        sol.nodes = k
+        sol.explored = explored
+        sol.fathomed = fathomed
         sol.best_bound = best_bound
         sol.mip_gap = gap
         return sol
     
-    def _pop_next(self, queue: List[BaseNode]):
+    def _pop_next(self, queue: List[Node]):
         if self.node_rule == "dfs":
             node = queue.pop(-1)
         elif self.node_rule == "bfs":

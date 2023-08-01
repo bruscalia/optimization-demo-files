@@ -104,7 +104,7 @@ class BaseNode:
 
 class Node(BaseNode):
     
-    children: List[BaseNode]
+    best_bound: float
     
     def __init__(self, parent: BaseNode, i: int, xi_lb: int, xi_ub: int, branching_rule="frac") -> None:
         super().__init__(branching_rule=branching_rule)
@@ -119,6 +119,10 @@ class Node(BaseNode):
         self.i = i
         self.xi_lb = xi_lb
         self.xi_ub = xi_ub
+    
+    @property
+    def best_bound(self):
+        return self.parent.sol.fun
     
     @property
     def lb(self):
