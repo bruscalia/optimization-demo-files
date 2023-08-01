@@ -37,7 +37,7 @@ Check my [Medium profile](https://medium.com/@bruscalia12) for some interesting 
 
 ## Special
 
-- [Capacitated vehicle routing problem (CVRP)](https://medium.com/@bruscalia12/vehicle-routing-problems-exact-and-heuristic-solutions-c411c0f4d734): Heuristics
+- [Capacitated vehicle routing problem (CVRP)](./vrp/cvrp_heur.ipynb): Heuristics
 - [Portfolio Efficient Frontier](./portfolio-moo/portfolio.ipynb): Modern Portfolio Theory using a multi-objective approach with pymoo and pymoode.
 
 ## Contact
