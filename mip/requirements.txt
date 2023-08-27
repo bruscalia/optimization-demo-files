@@ -1,7 +1,8 @@
 numpy
 pandas
 scipy>=1.9.*
-pyomo
+pyomo>=6.6
+highspy
 matplotlib
 ipykernel
 openpyxl
