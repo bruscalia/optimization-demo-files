@@ -1,0 +1,5 @@
+venv
+mip/knapsack/venv-mip
+__pycache__
+.vs
+*.log

@@ -2,4 +2,6 @@ numpy>=1.19.0
 pandas
 scipy>=1.9.0
 pyomo>=6.0.0
+matplotlib==3.*
+numdifftools==0.9.*
 ipykernel
