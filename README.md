@@ -24,6 +24,7 @@ Check my [Medium profile](https://medium.com/@bruscalia12) for some interesting 
 - Branch & Bound [graphical example](./mip/branch_and_bound/graphical_example.ipynb) and pure Python implementation [from scratch](./mip/branch_and_bound/branch_and_bound.ipynb)
 - [Cutting stock problem](./mip/cutting_stock/cutting_stock.ipynb)
 - [Capacitated vehicle routing problem (CVRP)](./vrp/cvrp_mip.ipynb)
+- [Graph Coloring Problem](./graph-coloring/gcol/ilp.py)
 
 ## Nonconvex
 
@@ -38,6 +39,7 @@ Check my [Medium profile](https://medium.com/@bruscalia12) for some interesting 
 ## Special
 
 - [Capacitated vehicle routing problem (CVRP)](./vrp/cvrp_heur.ipynb): Heuristics
+- [Graph Coloring Problem](./graph-coloring/gcol/dsatur.py): DSatur Heuristics
 - [Portfolio Efficient Frontier](./portfolio-moo/portfolio.ipynb): Modern Portfolio Theory using a multi-objective approach with pymoo and pymoode.
 
 ## Contact

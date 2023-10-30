@@ -1,0 +1,6 @@
+matplotlib==3.*
+networkx
+pyomo>=6.6
+highspy
+gif==23.3.*
+ipykernel
