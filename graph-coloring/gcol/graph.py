@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 
 
 class Color:
@@ -40,13 +40,48 @@ class Node:
         color.add_node()
 
     @property
+    def active(self):
+        return self.color is not None
+
+    @property
     def neighbor_colors(self):
-        return [n.color for n in self.neighbors if n.color is not None]
+        return [n.color for n in self.neighbors if n.active]
 
     @property
     def saturation(self):
-        return len(set((n.color for n in self.neighbors if n.color is not None)))
+        return len(set((n.color for n in self.neighbors if n.active)))
+
+    @property
+    def active_neighbors(self):
+        return sum(1 for n in self.neighbors if n.active)
 
     @property
     def degree(self):
         return len(self.neighbors)
+
+
+class Graph:
+
+    N: List[Node]
+    C: List[Color]
+    history: List[Node]
+
+    def __init__(self, nodes: List[int], edges: List[Tuple[int, int]]):
+        """Undirected Graph base class
+
+        Parameters
+        ----------
+        nodes : List[int]
+            List of node indexes for which colors should be defined
+
+        edges : List[Tuple[int, int]]
+            List of edges for which nodes can't be assigned to the same color
+        """
+        N = [Node(i) for i in nodes]
+        for e in edges:
+            i, j = e
+            N[i].add_neighbor(N[j])
+            N[j].add_neighbor(N[i])
+        self.N = N
+        self.C = []
+        self.history = []

@@ -1,36 +1,12 @@
-from typing import List, Tuple
-
-from gcol.graph import Color, Node
+from gcol.graph import Color, Graph, Node
 
 
-class DSatur:
+class DSatur(Graph):
+    """Graph Coloring DSatur Algorithm proposed by Brélaz (1979)
 
-    N: List[Node]
-    C: List[Color]
-    history: List[Node]
-
-    def __init__(self, nodes: List[int], edges: List[Tuple[int, int]]):
-        """Graph Coloring DSatur Algorithm proposed by Brélaz (1979)
-
-        Brélaz, D., 1979. New methods to color the vertices of a graph.
-        Communications of the ACM, 22(4), 251-256.
-
-        Parameters
-        ----------
-        nodes : List[int]
-            List of node indexes for which colors should be defined
-
-        edges : List[Tuple[int, int]]
-            List of edges for which nodes can't be assigned to the same color
-        """
-        N = [Node(i) for i in nodes]
-        for e in edges:
-            i, j = e
-            N[i].add_neighbor(N[j])
-            N[j].add_neighbor(N[i])
-        self.N = N
-        self.C = []
-        self.history = []
+    Brélaz, D., 1979. New methods to color the vertices of a graph.
+    Communications of the ACM, 22(4), 251-256.
+    """
 
     def find_next_color(self, node: Node) -> Color:
         """Finds the next available color to assign to a given node
