@@ -1,3 +1,4 @@
+import copy
 from typing import List, Tuple
 
 
@@ -66,6 +67,8 @@ class Graph:
     C: List[Color]
     history: List[Node]
 
+    color = Color(0)
+
     def __init__(self, nodes: List[int], edges: List[Tuple[int, int]]):
         """Undirected Graph base class
 
@@ -85,3 +88,37 @@ class Graph:
         self.N = N
         self.C = []
         self.history = []
+
+    @property
+    def active_nodes(self):
+        return [node for node in self.N if node.active]
+
+    @property
+    def inactive_nodes(self):
+        return [node for node in self.N if not node.active]
+
+    @property
+    def size(self):
+        return len(self.N)
+
+    @classmethod
+    def empty(cls):
+        return cls([], [])
+
+    def deactivate(self):
+        for n in self.N:
+            n.color = None
+
+    def activate(self):
+        for n in self.N:
+            n.set_color(self.color)
+
+    def copy(self):
+        """Creates deepcopy of a graph
+
+        Returns
+        -------
+        Graph
+            Deepcopy of instance
+        """
+        return copy.deepcopy(self)

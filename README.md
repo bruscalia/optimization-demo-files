@@ -27,6 +27,7 @@ Check my [Medium profile](https://medium.com/@bruscalia12) for some interesting 
 - [Cutting stock problem](./mip/cutting_stock/cutting_stock.ipynb)
 - [Capacitated vehicle routing problem (CVRP)](./vrp/cvrp_mip.ipynb)
 - [Graph Coloring Problem](./graph-coloring/gcol/ilp.py)
+- [Maximum Independent Set](./graph-coloring/gcol/mis/ilp.py)
 
 ## Nonconvex
 
@@ -41,7 +42,8 @@ Check my [Medium profile](https://medium.com/@bruscalia12) for some interesting 
 ## Special
 
 - [Capacitated vehicle routing problem (CVRP)](./vrp/cvrp_heur.ipynb): Heuristics
-- [Graph Coloring Problem](./graph-coloring/gcol/dsatur.py): DSatur Heuristics
+- [Graph Coloring Problem](./graph-coloring/gcol/dsatur.py): DSatur Heuristics and ILP
+- [Maximum Independent Set](./graph-coloring/gcol/mis/greedy.py): Greedy heuristics
 - [Portfolio Efficient Frontier](./portfolio-moo/portfolio.ipynb): Modern Portfolio Theory using a multi-objective approach with pymoo and pymoode.
 
 ## Contact

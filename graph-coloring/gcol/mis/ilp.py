@@ -2,7 +2,7 @@ from typing import List, Tuple
 
 import pyomo.environ as pyo
 
-from gcol.greedymis import Graph
+from gcol.mis.greedy import Graph
 
 
 # Do not repeat colors on edges and color is used

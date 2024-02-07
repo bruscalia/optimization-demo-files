@@ -40,14 +40,14 @@ class DSatur(Graph):
             Either or not to store a sequence of colores nodes in the `history` attribute,
             by default False
         """
-        Q = [n for n in self.N]  # Pool of uncolored nodes
+        Q = [node for node in self.N]  # Pool of uncolored nodes
         while len(Q) > 0:
-            Q.sort(key=lambda x: (x.saturation, x.degree), reverse=True)
-            n: Node = Q.pop(0)
-            next_color = self.find_next_color(n)
-            n.set_color(next_color)
+            node: Node = min(Q, key=lambda x: (x.saturation, x.degree))
+            Q.remove(node)
+            next_color = self.find_next_color(node)
+            node.set_color(next_color)
             if save_history:
-                self.history.append(n)
+                self.history.append(node)
         self.C.sort(key=lambda x: x.n_nodes, reverse=True)
 
     @property
