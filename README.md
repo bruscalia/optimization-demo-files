@@ -27,6 +27,7 @@ Check my [Medium profile](https://medium.com/@bruscalia12) for some interesting 
 - [Cutting stock problem](./mip/cutting_stock/cutting_stock.ipynb)
 - [Capacitated vehicle routing problem (CVRP)](./vrp/cvrp_mip.ipynb)
 - [Graph Coloring Problem](./graph-coloring/gcol/ilp.py)
+- [Piecewise linear](./mip/piecewise_linear/sigmoid.ipynb)
 
 ## Nonconvex
 
