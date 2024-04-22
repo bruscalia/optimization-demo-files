@@ -1,0 +1,55 @@
+{
+    "capacity": 34,
+    "items": [
+        {
+            "index": 0,
+            "weight": 10,
+            "value": 20
+        },
+        {
+            "index": 1,
+            "weight": 5,
+            "value": 10
+        },
+        {
+            "index": 2,
+            "weight": 15,
+            "value": 25
+        },
+        {
+            "index": 3,
+            "weight": 7,
+            "value": 17
+        },
+        {
+            "index": 4,
+            "weight": 8,
+            "value": 19
+        },
+        {
+            "index": 5,
+            "weight": 6,
+            "value": 14
+        },
+        {
+            "index": 6,
+            "weight": 9,
+            "value": 23
+        },
+        {
+            "index": 7,
+            "weight": 3,
+            "value": 13
+        },
+        {
+            "index": 8,
+            "weight": 4,
+            "value": 8
+        },
+        {
+            "index": 9,
+            "weight": 11,
+            "value": 30
+        }
+    ]
+}
