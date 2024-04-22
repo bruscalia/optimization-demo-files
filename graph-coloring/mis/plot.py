@@ -5,17 +5,19 @@ import matplotlib.pyplot as plt
 from matplotlib.cm import get_cmap
 import networkx as nx
 
-from gcol.graph import Node
+from mis.graph import Node
 
 
 def draw_from_nodes(
     nodes: List[Node],
+    active_color: Any = "firebrick",
+    inactive_color: Any = "grey",
     **kwargs
 ):
     N = [n.index for n in nodes]
-    C = [n.color.index for n in nodes]
+    C = [int(n.selected) for n in nodes]
     E = [(n.index, m.index) for n in nodes for m in n.neighbors]
-    draw_colored_graph(N, C, E, **kwargs)
+    draw_colored_graph(N, C, E, plot_colors=[inactive_color, active_color], **kwargs)
 
 
 def draw_colored_graph(
@@ -61,10 +63,12 @@ def draw_colored_graph(
         plt.axis("off")
 
 
-def draw_colored_gif(
+def draw_selection_gif(
     filename: str,
+    nodes: List[Node],
     history: List[Node],
-    colors=None,
+    active_color: Any = "firebrick",
+    inactive_color: Any = "grey",
     node_size=200,
     node_alpha=1.0,
     font_size=8,
@@ -78,21 +82,22 @@ def draw_colored_gif(
     seed=None,
     **kwargs
 ):
-    nodes: List[Node] = sorted(history, key=lambda x: x.index)
+    nodes.sort(key=lambda x: x.index)
 
     # Obtain edges and colors
     edges = []
     node_colors = []
     node_indexes = []
-    for i in nodes:
-        node_colors.append(i.color.index)
+    for i in history:
+        node_colors.append(int(i.selected))
         node_indexes.append(i.index)
+
+    for i in nodes:
         for j in i.neighbors:
             edges.append((i.index, j.index))
 
     # Create a list of colors base on two colormaps
-    if colors is None:
-        colors = get_cmap('Dark2').colors + get_cmap('Set1').colors + get_cmap('Set2').colors + get_cmap('Set3').colors
+    colors = [inactive_color, active_color]
 
     # Create a networkx graph from the edges
     G = nx.Graph()
@@ -107,8 +112,9 @@ def draw_colored_gif(
     @gif.frame
     def new_frame(i: int):
         fig, ax = plt.subplots(**kwargs)
+        inactive_indexes = [n.index for n in nodes if n.index not in node_indexes[:i]]
         nx.draw_networkx_nodes(
-            G, pos, nodelist=node_indexes[i:], node_color="grey",
+            G, pos, nodelist=inactive_indexes, node_color=inactive_color,
             node_size=node_size, ax=ax, alpha=0.5 * node_alpha,
         )
         nx.draw_networkx_nodes(

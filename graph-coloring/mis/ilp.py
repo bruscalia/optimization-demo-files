@@ -2,7 +2,7 @@ from typing import List, Tuple
 
 import pyomo.environ as pyo
 
-from gcol.mis.greedy import Graph
+from mis.graph import Graph
 
 
 # Do not repeat colors on edges and color is used
@@ -23,8 +23,8 @@ def ilp_mis_from_graph(graph: Graph) -> pyo.ConcreteModel:
     pyo.ConcreteModel
         `Concretemodel` of pyomo
     """
-    nodes = [n.index for n in graph.N]
-    edges = [(n.index, m.index) for n in graph.N for m in n.neighbors]
+    nodes = [i for i in graph.N.keys()]
+    edges = [(n.index, m.index) for n in graph.N.values() for m in n.neighbors]
     model = build_mis_ilp(nodes, edges)
     warmstart_from_greedy(model, graph)
     return model
@@ -73,8 +73,8 @@ def build_mis_ilp(
 
 
 def warmstart_from_greedy(model, graph: Graph):
-    for n in graph.N:
-        if n.active:
+    for n in graph.N.values():
+        if n.selected:
             model.x[n.index].value = 1.0
         else:
             model.x[n.index].value = 0.0
