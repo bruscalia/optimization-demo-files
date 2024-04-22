@@ -44,7 +44,8 @@ Check my [Medium profile](https://medium.com/@bruscalia12) for some interesting 
 
 - [Capacitated vehicle routing problem (CVRP)](./vrp/cvrp_heur.ipynb): Heuristics
 - [Graph Coloring Problem](./graph-coloring/gcol/dsatur.py): DSatur Heuristics and ILP
-- [Maximum Independent Set](./graph-coloring/gcol/mis/greedy.py): Greedy heuristics
+- [Maximum Independent Set](./graph-coloring/mis/heuristic.py): Greedy and Random heuristics and ILP
+- [Knapsack Problem](./mip/knapsack/heuristics/heuristic.py): Greedy heuristics
 - [Portfolio Efficient Frontier](./portfolio-moo/portfolio.ipynb): Modern Portfolio Theory using a multi-objective approach with pymoo and pymoode.
 
 ## Contact
