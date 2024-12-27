@@ -38,6 +38,7 @@ class BaseConstructive(ABC):
         return self.graph.history
 
     def solve(self, *args, **kwargs) -> Graph:
+        self.graph.deactivate()
         G = self.graph.copy()
         for i in range(len(G.N)):
             n = self.choice(G)

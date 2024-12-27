@@ -2,7 +2,7 @@ from typing import List, Tuple
 
 import pyomo.environ as pyo
 
-from gcol.dsatur import DSatur
+from gcol.datamodels.graph import Graph
 
 
 # Fill every node with some color
@@ -29,24 +29,30 @@ def obj(model):
     return sum(model.y[:])
 
 
-def ilp_from_dsatur(dsatur: DSatur) -> pyo.ConcreteModel:
-    """Instantiates pyomo Integer Linear Programming model for the Graph Coloring Problem
+def ilp_from_graph(graph: Graph) -> pyo.ConcreteModel:
+    """
+    Instantiates pyomo Integer Linear Programming
+    model for the Graph Coloring Problem
 
     Parameters
     ----------
-    dsatur : DSatur
-        Heuristic solution
+    graph : Graph
+        Graph representation of solved instance
 
     Returns
     -------
     pyo.ConcreteModel
         `Concretemodel` of pyomo
     """
-    nodes = [n.index for n in dsatur.N]
-    colors = [c.index for c in dsatur.C]
-    edges = [(n.index, m.index) for n in dsatur.N for m in n.neighbors]
+    nodes = [n.index for n in graph.nodes.values()]
+    colors = [c.index for c in graph.colors]
+    edges = [
+        (n.index, m.index)
+        for n in graph.nodes.values()
+        for m in n.neighbors
+    ]
     model = build_ilp(nodes, colors, edges)
-    warmstart_from_dsatur(model, dsatur)
+    warmstart_from_graph(model, graph)
     return model
 
 
@@ -97,13 +103,13 @@ def build_ilp(
     return model
 
 
-def warmstart_from_dsatur(model, dsatur: DSatur):
-    for n in dsatur.N:
-        for c in dsatur.C:
+def warmstart_from_graph(model, graph: Graph):
+    for n in graph.nodes.values():
+        for c in graph.colors:
             if n.color is c:
                 model.x[n.index, c.index].value = 1.0
             else:
                 model.x[n.index, c.index].value = 0.0
 
-    for c in dsatur.C:
+    for c in graph.colors:
         model.y[c.index].value = 1.0
